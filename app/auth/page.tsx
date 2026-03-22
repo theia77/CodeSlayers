@@ -58,7 +58,7 @@ export default function AuthPage() {
             </p>
             {codeLines.map((line, index) => (
               <motion.p
-                key={line + index}
+                key={index}
                 className="leading-7"
                 initial={{ opacity: 0.2 }}
                 animate={{ opacity: [0.2, 1, 0.2] }}

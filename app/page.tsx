@@ -30,8 +30,6 @@ const rules = [
   },
 ];
 
-const ranks = ["Iron", "Bronze", "Silver", "Gold", "Platinum", "Diamond"];
-
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);

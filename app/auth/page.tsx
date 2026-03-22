@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Chrome, Github } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const typingLines = [
   "def reverse_linked_list(head):",
@@ -20,6 +21,11 @@ const authGlowBackground = "rgba(255,77,0,0.22)";
 
 export default function AuthPage() {
   const [tab, setTab] = useState<"login" | "register">("login");
+  const router = useRouter();
+
+  const redirectToHome = () => {
+    router.push("/");
+  };
 
   const symbols = useMemo(
     () =>
@@ -105,7 +111,13 @@ export default function AuthPage() {
               </button>
             </div>
 
-            <form className="mt-6 space-y-4">
+            <form
+              className="mt-6 space-y-4"
+              onSubmit={(event) => {
+                event.preventDefault();
+                redirectToHome();
+              }}
+            >
               <AnimatePresence mode="wait">
                 {tab === "register" && (
                   <motion.label
@@ -120,6 +132,7 @@ export default function AuthPage() {
                       type="text"
                       placeholder=" "
                       autoComplete="username"
+                      required
                       aria-label="Username"
                       className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
                     />
@@ -135,6 +148,7 @@ export default function AuthPage() {
                   type="email"
                   placeholder=" "
                   autoComplete="email"
+                  required
                   className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
                 />
                 <span className="pointer-events-none absolute left-3 top-3 text-xs font-semibold text-zinc-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs">
@@ -147,6 +161,7 @@ export default function AuthPage() {
                   type="password"
                   placeholder=" "
                   autoComplete={tab === "login" ? "current-password" : "new-password"}
+                  required
                   className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
                 />
                 <span className="pointer-events-none absolute left-3 top-3 text-xs font-semibold text-zinc-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs">
@@ -154,7 +169,7 @@ export default function AuthPage() {
                 </span>
               </label>
 
-              <button type="button" className="w-full rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold text-[#F1F1F1]">
+              <button type="submit" className="w-full rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold text-[#F1F1F1]">
                 {tab === "login" ? "Authenticate" : "Create Slayer Profile"}
               </button>
             </form>

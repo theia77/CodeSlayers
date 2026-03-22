@@ -100,7 +100,14 @@ export default function AuthPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F1F1F1]">
+    <main className="relative min-h-screen overflow-hidden bg-[#0B0B0D] text-[#F1F1F1]">
+      <div className="grain-overlay" aria-hidden="true" />
+      <div className="vignette-overlay" aria-hidden="true" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center opacity-20"
+        style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+      />
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute -left-24 top-16 h-72 w-72 rounded-full blur-3xl"
@@ -108,17 +115,22 @@ export default function AuthPage() {
         animate={{ y: [0, 20, -12, 0], x: [0, 12, -8, 0] }}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
       />
-      <div className="mx-auto grid min-h-screen w-full max-w-7xl md:grid-cols-2">
+      <div className="relative z-10 mx-auto grid min-h-screen w-full max-w-7xl md:grid-cols-2">
         <motion.section
-          className="relative hidden overflow-hidden border-r border-zinc-800 p-8 md:block"
+          className="relative hidden overflow-hidden border-r border-white/10 p-8 md:block"
           initial={{ opacity: 0, x: -24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
+          <nav className="nav-pill inline-flex rounded-full px-3 py-2">
+            <span className="font-mono-custom text-xs uppercase tracking-[0.2em] text-white/80">
+              CodeSlayers Access
+            </span>
+          </nav>
           {symbols.map((symbol) => (
             <motion.span
               key={symbol.id}
-              className="absolute font-mono text-2xl text-[#A855F7]/30"
+              className="absolute font-mono-custom text-2xl text-[#A855F7]/30"
               style={{ left: symbol.left, top: symbol.top }}
               animate={{ y: [0, -16, 0], opacity: [0.25, 0.6, 0.25] }}
               transition={{ duration: symbol.duration, repeat: Infinity, ease: "easeInOut" }}
@@ -127,8 +139,10 @@ export default function AuthPage() {
             </motion.span>
           ))}
 
-          <div className="relative z-10 mt-10 rounded-md border border-zinc-800 bg-[#141414] p-5 font-mono text-sm">
-            <p className="mb-4 text-xs uppercase tracking-[0.18em] text-[#A855F7]">Live Algorithm Feed</p>
+          <div className="card-dark relative z-10 mt-10 rounded-[22px] p-5 font-mono-custom text-sm">
+            <p className="gradient-text-violet mb-4 text-xs uppercase tracking-[0.18em]">
+              Live Algorithm Feed
+            </p>
             {typingLines.map((line, index) => (
               <motion.p
                 key={line}
@@ -149,16 +163,20 @@ export default function AuthPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
         >
-          <div className="w-full max-w-md rounded-md border border-zinc-800 bg-[#141414] p-6">
-            <div className="grid grid-cols-2 gap-2 rounded-md border border-zinc-800 p-1">
+          <div className="card-dark w-full max-w-md rounded-[22px] p-6">
+            <h1 className="font-display mb-2 text-2xl text-white">Join the Arena</h1>
+            <p className="font-mono-custom mb-6 text-xs uppercase tracking-[0.2em] text-white/50">
+              Use your CodeSlayers account
+            </p>
+            <div className="grid grid-cols-2 gap-2 rounded-full border border-white/10 p-1">
               <button
                 type="button"
                 onClick={() => {
                   setTab("login");
                   resetError();
                 }}
-                className={`rounded-md px-3 py-2 text-sm font-bold transition ${
-                  tab === "login" ? "bg-[#FF4D00] text-[#F1F1F1]" : "text-zinc-400"
+                className={`rounded-full px-3 py-2 text-sm font-semibold uppercase tracking-wide transition ${
+                  tab === "login" ? "bg-[#FF4D00] text-white" : "text-zinc-400"
                 }`}
               >
                 Login
@@ -169,8 +187,8 @@ export default function AuthPage() {
                   setTab("signup");
                   resetError();
                 }}
-                className={`rounded-md px-3 py-2 text-sm font-bold transition ${
-                  tab === "signup" ? "bg-[#FF4D00] text-[#F1F1F1]" : "text-zinc-400"
+                className={`rounded-full px-3 py-2 text-sm font-semibold uppercase tracking-wide transition ${
+                  tab === "signup" ? "bg-[#FF4D00] text-white" : "text-zinc-400"
                 }`}
               >
                 Sign Up
@@ -195,7 +213,7 @@ export default function AuthPage() {
                       required
                       value={name}
                       onChange={(event) => setName(event.target.value)}
-                      className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
+                      className="peer w-full rounded-xl border border-white/10 bg-black/30 px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
                     />
                     <span className="pointer-events-none absolute left-3 top-3 text-xs font-semibold text-zinc-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs">
                       Full Name
@@ -212,7 +230,7 @@ export default function AuthPage() {
                   required
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
+                  className="peer w-full rounded-xl border border-white/10 bg-black/30 px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
                 />
                 <span className="pointer-events-none absolute left-3 top-3 text-xs font-semibold text-zinc-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs">
                   Email
@@ -227,7 +245,7 @@ export default function AuthPage() {
                   required
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
+                  className="peer w-full rounded-xl border border-white/10 bg-black/30 px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
                 />
                 <span className="pointer-events-none absolute left-3 top-3 text-xs font-semibold text-zinc-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs">
                   Password
@@ -239,7 +257,7 @@ export default function AuthPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold text-[#F1F1F1] disabled:cursor-not-allowed disabled:opacity-60"
+                className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Please wait..." : tab === "login" ? "Login" : "Create Slayer Profile"}
               </button>

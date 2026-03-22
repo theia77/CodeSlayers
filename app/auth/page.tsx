@@ -16,6 +16,8 @@ const typingLines = [
   "    return prev",
 ];
 
+const authGlowBackground = "rgba(255,77,0,0.22)";
+
 export default function AuthPage() {
   const [tab, setTab] = useState<"login" | "register">("login");
 
@@ -36,7 +38,7 @@ export default function AuthPage() {
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute -left-24 top-16 h-72 w-72 rounded-full blur-3xl"
-        style={{ background: "rgba(255,77,0,0.22)" }}
+        style={{ background: authGlowBackground }}
         animate={{ y: [0, 20, -12, 0], x: [0, 12, -8, 0] }}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -118,6 +120,7 @@ export default function AuthPage() {
                       type="text"
                       placeholder=" "
                       autoComplete="username"
+                      aria-label="Username"
                       className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
                     />
                     <span className="pointer-events-none absolute left-3 top-3 text-xs font-semibold text-zinc-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs">

@@ -2,6 +2,7 @@
 
 import { Flame, Coins, ShieldCheck, Swords, BookOpen, Trophy } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   PolarGrid,
   PolarAngleAxis,
@@ -76,6 +77,7 @@ function ContributionHeatmap() {
 }
 
 export default function DashboardContent({ fullName, xp, coins, rank, streak }: DashboardContentProps) {
+  const pathname = usePathname();
   const xpGoal = 2000;
   const xpPercent = Math.min(100, Math.round((xp / xpGoal) * 100));
 
@@ -90,8 +92,8 @@ export default function DashboardContent({ fullName, xp, coins, rank, streak }: 
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`w-full rounded-md px-3 py-2 text-left text-sm ${
-                    item.label === "Dashboard"
+                  className={`block w-full rounded-md px-3 py-2 text-left text-sm ${
+                    pathname === item.href
                       ? "bg-[#FF4D00] text-[#F1F1F1]"
                       : "text-zinc-300 hover:bg-zinc-800"
                   }`}

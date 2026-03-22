@@ -25,6 +25,7 @@ export default function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [infoMessage, setInfoMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
@@ -42,11 +43,14 @@ export default function AuthPage() {
     [],
   );
 
-  const resetError = () => setErrorMessage("");
+  const resetMessages = () => {
+    setErrorMessage("");
+    setInfoMessage("");
+  };
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    resetError();
+    resetMessages();
     setIsSubmitting(true);
 
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -76,7 +80,7 @@ export default function AuthPage() {
 
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    resetError();
+    resetMessages();
     setIsSubmitting(true);
 
     const { data, error } = await supabase.auth.signUp({
@@ -101,14 +105,22 @@ export default function AuthPage() {
       headers: token ? { Authorization: `Bearer ${token}` } : undefined,
     });
 
-    if (!bootstrapResponse.ok && !(bootstrapResponse.status === 401 && !data.session)) {
+    const shouldIgnoreBootstrapError = bootstrapResponse.status === 401 && !data.session;
+
+    if (!bootstrapResponse.ok && !shouldIgnoreBootstrapError) {
       const body = (await bootstrapResponse.json()) as { error?: string };
       setErrorMessage(body.error ?? "Unable to initialize your profile.");
       setIsSubmitting(false);
       return;
     }
 
-    router.push(data.session ? "/dashboard" : "/auth");
+    if (!data.session) {
+      setInfoMessage("Sign-up successful. Please check your email for next steps.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    router.push("/dashboard");
     router.refresh();
   };
 
@@ -185,9 +197,9 @@ export default function AuthPage() {
               <button
                 type="button"
                 onClick={() => {
-                  setTab("login");
-                  resetError();
-                }}
+                   setTab("login");
+                   resetMessages();
+                 }}
                 className={`rounded-full px-3 py-2 text-sm font-semibold uppercase tracking-wide transition ${
                   tab === "login" ? "bg-[#FF4D00] text-white" : "text-zinc-400"
                 }`}
@@ -197,9 +209,9 @@ export default function AuthPage() {
               <button
                 type="button"
                 onClick={() => {
-                  setTab("signup");
-                  resetError();
-                }}
+                   setTab("signup");
+                   resetMessages();
+                 }}
                 className={`rounded-full px-3 py-2 text-sm font-semibold uppercase tracking-wide transition ${
                   tab === "signup" ? "bg-[#FF4D00] text-white" : "text-zinc-400"
                 }`}
@@ -266,6 +278,7 @@ export default function AuthPage() {
               </label>
 
               {errorMessage ? <p className="text-sm text-red-500">{errorMessage}</p> : null}
+              {infoMessage ? <p className="text-sm text-emerald-400">{infoMessage}</p> : null}
 
               <button
                 type="submit"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Chrome, Github } from "lucide-react";
 
 const typingLines = [
@@ -33,8 +33,20 @@ export default function AuthPage() {
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F1F1F1]">
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-24 top-16 h-72 w-72 rounded-full blur-3xl"
+        style={{ background: "rgba(255,77,0,0.22)" }}
+        animate={{ y: [0, 20, -12, 0], x: [0, 12, -8, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+      />
       <div className="mx-auto grid min-h-screen w-full max-w-7xl md:grid-cols-2">
-        <section className="relative hidden overflow-hidden border-r border-zinc-800 p-8 md:block">
+        <motion.section
+          className="relative hidden overflow-hidden border-r border-zinc-800 p-8 md:block"
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
           {symbols.map((symbol) => (
             <motion.span
               key={symbol.id}
@@ -61,9 +73,14 @@ export default function AuthPage() {
               </motion.p>
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        <section className="flex items-center justify-center p-4 sm:p-8">
+        <motion.section
+          className="flex items-center justify-center p-4 sm:p-8"
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+        >
           <div className="w-full max-w-md rounded-md border border-zinc-800 bg-[#141414] p-6">
             <div className="grid grid-cols-2 gap-2 rounded-md border border-zinc-800 p-1">
               <button
@@ -87,6 +104,29 @@ export default function AuthPage() {
             </div>
 
             <form className="mt-6 space-y-4">
+              <AnimatePresence mode="wait">
+                {tab === "register" && (
+                  <motion.label
+                    key="username-field"
+                    className="relative block"
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <input
+                      type="text"
+                      placeholder=" "
+                      autoComplete="username"
+                      className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
+                    />
+                    <span className="pointer-events-none absolute left-3 top-3 text-xs font-semibold text-zinc-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs">
+                      Username
+                    </span>
+                  </motion.label>
+                )}
+              </AnimatePresence>
+
               <label className="relative block">
                 <input
                   type="email"
@@ -139,7 +179,7 @@ export default function AuthPage() {
               </button>
             </div>
           </div>
-        </section>
+        </motion.section>
       </div>
     </main>
   );

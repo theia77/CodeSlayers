@@ -49,10 +49,23 @@ export default function AuthPage() {
     resetError();
     setIsSubmitting(true);
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
       setErrorMessage(error.message);
+      setIsSubmitting(false);
+      return;
+    }
+
+    const token = data.session?.access_token;
+    const bootstrapResponse = await fetch("/api/profiles/bootstrap", {
+      method: "POST",
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    });
+
+    if (!bootstrapResponse.ok) {
+      const body = (await bootstrapResponse.json()) as { error?: string };
+      setErrorMessage(body.error ?? "Unable to load your profile.");
       setIsSubmitting(false);
       return;
     }
@@ -88,14 +101,14 @@ export default function AuthPage() {
       headers: token ? { Authorization: `Bearer ${token}` } : undefined,
     });
 
-    if (!bootstrapResponse.ok) {
+    if (!bootstrapResponse.ok && !(bootstrapResponse.status === 401 && !data.session)) {
       const body = (await bootstrapResponse.json()) as { error?: string };
       setErrorMessage(body.error ?? "Unable to initialize your profile.");
       setIsSubmitting(false);
       return;
     }
 
-    router.push("/dashboard");
+    router.push(data.session ? "/dashboard" : "/auth");
     router.refresh();
   };
 

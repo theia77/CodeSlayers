@@ -5,11 +5,12 @@ export async function POST(request: Request) {
   const supabase = await createClient();
   const authHeader = request.headers.get("authorization");
   const bearerToken = authHeader?.toLowerCase().startsWith("bearer ") ? authHeader.slice(7) : undefined;
+  const getUserResult = bearerToken ? await supabase.auth.getUser(bearerToken) : await supabase.auth.getUser();
 
   const {
     data: { user },
     error: userError,
-  } = await supabase.auth.getUser(bearerToken);
+  } = getUserResult;
 
   if (userError || !user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
       rank: "Iron I",
       streak: 0,
     },
-    { onConflict: "id" },
+    { onConflict: "id", ignoreDuplicates: true },
   );
 
   if (error) {

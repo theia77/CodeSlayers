@@ -49,7 +49,7 @@ function ThemeToggle() {
       type="button"
       aria-label="Toggle theme"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-zinc-200 bg-[var(--surface)] text-[var(--text)] transition hover:border-[#FF4D00] dark:border-zinc-800"
+      className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-zinc-200 bg-[var(--surface)] text-zinc-900 transition hover:border-[#FF4D00] dark:border-zinc-800 dark:text-zinc-100"
     >
       {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
     </button>
@@ -115,7 +115,7 @@ export default function Page() {
   const blobX = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
-    <main className="min-h-screen bg-[var(--base)] text-[var(--text)]">
+    <main className="min-h-screen bg-[var(--base)] text-zinc-900 dark:text-zinc-100">
       <motion.div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 overflow-hidden"
@@ -164,10 +164,10 @@ export default function Page() {
         <section ref={heroRef} className="relative overflow-hidden px-4 pb-14 pt-28 sm:pt-32">
           <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-2 lg:items-end">
             <motion.div style={{ scale: heroScale, opacity: heroOpacity }}>
-              <h1 className="max-w-xl text-4xl font-black leading-tight sm:text-6xl">
+              <h1 className="max-w-xl text-4xl font-black leading-tight text-zinc-900 dark:text-zinc-100 sm:text-6xl">
                 Grind. Rank Up. Slay the Interview.
               </h1>
-              <p className="mt-6 max-w-xl text-base text-[var(--muted)] sm:text-lg">
+              <p className="mt-6 max-w-xl text-base text-[#6B7280] dark:text-[#D4D4D8] sm:text-lg">
                 Stop doing boring tutorials. Grind real DSA &amp; ML problems, defend your
                 streak, and rank up from Iron to Slayer in the most competitive coding
                 arena on the web.
@@ -235,7 +235,7 @@ export default function Page() {
         </motion.section>
 
         <section className="mx-auto w-full max-w-7xl px-4 py-10">
-          <h2 className="mb-5 text-2xl font-black">The Rules of the Arena</h2>
+          <h2 className="mb-5 text-2xl font-black text-zinc-900 dark:text-zinc-100">The Rules of the Arena</h2>
           <motion.div
             className="grid gap-4 md:grid-cols-3"
             initial="hidden"
@@ -263,7 +263,7 @@ export default function Page() {
                   className="rounded-md border border-zinc-200 bg-[var(--surface)] p-5 dark:border-zinc-800"
                 >
                   <Icon aria-hidden="true" className={`h-6 w-6 ${rule.iconClass}`} />
-                  <h3 className="mt-4 text-lg font-bold">{rule.title}</h3>
+                  <h3 className="mt-4 text-lg font-bold text-zinc-900 dark:text-zinc-100">{rule.title}</h3>
                   <p className="mt-2 text-sm text-[var(--muted)]">{rule.copy}</p>
                 </motion.article>
               );
@@ -272,11 +272,11 @@ export default function Page() {
         </section>
 
         <section className="mx-auto w-full max-w-7xl px-4 py-10">
-          <h2 className="mb-5 text-2xl font-black">Unlock Your Slayer Arsenal.</h2>
+          <h2 className="mb-5 text-2xl font-black text-zinc-900 dark:text-zinc-100">Unlock Your Slayer Arsenal.</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <article className="rounded-md border border-zinc-200 bg-[var(--surface)] p-6 dark:border-zinc-800">
               <p className="text-sm font-bold text-[var(--muted)]">Monthly Challenger</p>
-              <p className="mt-2 text-3xl font-black">₹200 / month</p>
+              <p className="mt-2 text-3xl font-black text-zinc-900 dark:text-zinc-100">₹200 / month</p>
               <ul className="mt-4 space-y-2 text-sm text-[var(--muted)]">
                 <li>• Full problem arena access</li>
                 <li>• Streak freezing</li>
@@ -292,7 +292,7 @@ export default function Page() {
 
             <article className="rounded-md border border-[#A855F7] bg-[var(--surface)] p-6 shadow-[0_0_20px_rgba(168,85,247,0.35)]">
               <p className="text-sm font-bold text-[#A855F7]">Pro Slayer (Best Value)</p>
-              <p className="mt-2 text-3xl font-black">₹700 / year</p>
+              <p className="mt-2 text-3xl font-black text-zinc-900 dark:text-zinc-100">₹700 / year</p>
               <ul className="mt-4 space-y-2 text-sm text-[var(--muted)]">
                 <li>• Includes 5 Premium ML/DSA Courses</li>
                 <li>• Unlimited Judge0 executions</li>
@@ -313,7 +313,7 @@ export default function Page() {
 
         <footer className="border-t border-zinc-200 bg-[var(--surface)] dark:border-zinc-800">
           <div className="mx-auto w-full max-w-7xl px-4 py-10">
-            <h2 className="text-3xl font-black">Ready to draw first blood?</h2>
+            <h2 className="text-3xl font-black text-zinc-900 dark:text-zinc-100">Ready to draw first blood?</h2>
           </div>
         </footer>
       </div>

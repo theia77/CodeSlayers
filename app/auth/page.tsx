@@ -112,7 +112,7 @@ export default function AuthPage() {
               </label>
 
               <button type="button" className="w-full rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold text-[#F1F1F1]">
-                Authenticate
+                {tab === "login" ? "Authenticate" : "Create Slayer Profile"}
               </button>
             </form>
 

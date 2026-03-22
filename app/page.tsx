@@ -30,7 +30,7 @@ const roadmap = [
   },
   {
     phase: "Merge",
-    title: "Defend your daily streak & climb the global ranks",
+    title: "Defend your daily streak & Climb the global ranks",
     description: "Protect streaks, win daily battles, and push your profile up the leaderboard.",
   },
   {
@@ -84,6 +84,8 @@ const courses = [
     featured: false,
   },
 ];
+
+const marqueeLoopShift = "-33.333%";
 
 function SpotlightCard({
   title,
@@ -228,7 +230,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-7xl overflow-hidden px-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <motion.div
             className="flex min-w-max gap-14 text-sm uppercase tracking-[0.3em] text-zinc-500"
-            animate={{ x: ["0%", "-33.333%"] }}
+            animate={{ x: ["0%", marqueeLoopShift] }}
             transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
           >
             {marqueeItems.map((logo, index) => (

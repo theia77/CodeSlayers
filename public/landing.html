@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CodeSlayers</title>
-    <script type="module" crossorigin src="/index-D3kFfeVE.js"></script>
-    <link rel="stylesheet" crossorigin href="/index-sQqkoqx2.css" />
+    <script>
+      if (window.location.pathname === "/landing.html") {
+        window.history.replaceState({}, "", "/");
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-vZOU70ii.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Dn4uPZ_x.css" />
   </head>
   <body>
     <div id="root"></div>

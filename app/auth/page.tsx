@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Chrome, Github } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const typingLines = [
   "def reverse_linked_list(head):",
@@ -20,6 +21,11 @@ const authGlowBackground = "rgba(255,77,0,0.22)";
 
 export default function AuthPage() {
   const [tab, setTab] = useState<"login" | "register">("login");
+  const router = useRouter();
+
+  const handleAuthRedirect = () => {
+    router.push("/");
+  };
 
   const symbols = useMemo(
     () =>
@@ -105,7 +111,13 @@ export default function AuthPage() {
               </button>
             </div>
 
-            <form className="mt-6 space-y-4">
+            <form
+              className="mt-6 space-y-4"
+              onSubmit={(event) => {
+                event.preventDefault();
+                handleAuthRedirect();
+              }}
+            >
               <AnimatePresence mode="wait">
                 {tab === "register" && (
                   <motion.label
@@ -154,7 +166,7 @@ export default function AuthPage() {
                 </span>
               </label>
 
-              <button type="button" className="w-full rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold text-[#F1F1F1]">
+              <button type="submit" className="w-full rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold text-[#F1F1F1]">
                 {tab === "login" ? "Authenticate" : "Create Slayer Profile"}
               </button>
             </form>
@@ -168,6 +180,7 @@ export default function AuthPage() {
             <div className="grid gap-2 sm:grid-cols-2">
               <button
                 type="button"
+                onClick={handleAuthRedirect}
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-zinc-800 px-3 py-2 text-sm font-semibold"
               >
                 <Github className="h-4 w-4" aria-hidden="true" />
@@ -175,6 +188,7 @@ export default function AuthPage() {
               </button>
               <button
                 type="button"
+                onClick={handleAuthRedirect}
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-zinc-800 px-3 py-2 text-sm font-semibold"
               >
                 <Chrome className="h-4 w-4" aria-hidden="true" />

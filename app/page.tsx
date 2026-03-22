@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Terminal,
@@ -166,6 +166,15 @@ export default function Home() {
   const marqueeItems = useMemo(() => [...logos, ...logos, ...logos], []);
   const [runMessage, setRunMessage] = useState<string>("");
 
+  useEffect(() => {
+    if (!runMessage) {
+      return;
+    }
+
+    const timeout = setTimeout(() => setRunMessage(""), 2500);
+    return () => clearTimeout(timeout);
+  }, [runMessage]);
+
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F1F1F1]">
       <nav className="sticky top-0 z-50 border-b border-zinc-800 bg-[#0A0A0A]">
@@ -219,13 +228,13 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/auth"
-              className="rounded-md bg-[#FF4D00] px-6 py-3 text-sm font-bold text-[#F1F1F1]"
+              className="rounded-md bg-[#FF4D00] px-6 py-3 text-sm font-bold text-[#F1F1F1] transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#FF4D00] focus:ring-offset-2 focus:ring-offset-[#0A0A0A]"
             >
               Enter the Arena
             </Link>
             <Link
-              href="/auth"
-              className="rounded-md border border-zinc-800 bg-[#141414] px-6 py-3 text-sm font-bold"
+              href="/auth?intent=courses"
+              className="rounded-md border border-zinc-800 bg-[#141414] px-6 py-3 text-sm font-bold transition hover:bg-zinc-800/70 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 focus:ring-offset-[#0A0A0A]"
             >
               View Courses
             </Link>
@@ -347,7 +356,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setRunMessage("Sample executed successfully in demo mode.")}
-                className="inline-flex items-center gap-2 rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold"
+                className="inline-flex items-center gap-2 rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#FF4D00] focus:ring-offset-2 focus:ring-offset-[#0A0A0A]"
               >
                 <Play className="h-4 w-4" />
                 Run Code
@@ -456,8 +465,8 @@ export default function Home() {
               <li>• Streak freezes</li>
             </ul>
             <Link
-              href="/auth"
-              className="mt-6 inline-block rounded-md border border-zinc-800 px-4 py-2 text-sm font-bold"
+              href="/auth?plan=challenger"
+              className="mt-6 inline-block rounded-md border border-zinc-800 px-4 py-2 text-sm font-bold transition hover:bg-zinc-800/70 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 focus:ring-offset-[#0A0A0A]"
             >
               Start Challenger
             </Link>
@@ -473,8 +482,8 @@ export default function Home() {
               <li>• Exclusive Slayer profile badge</li>
             </ul>
             <Link
-              href="/auth"
-              className="mt-6 inline-block rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold text-[#F1F1F1]"
+              href="/auth?plan=pro-slayer"
+              className="mt-6 inline-block rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold text-[#F1F1F1] transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#FF4D00] focus:ring-offset-2 focus:ring-offset-[#0A0A0A]"
             >
               Choose Pro Slayer
             </Link>

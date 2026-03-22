@@ -21,11 +21,15 @@ export default async function DashboardPage() {
     redirect("/auth");
   }
 
-  const { data: profile } = await supabase
+  const { data: profile, error } = await supabase
     .from("profiles")
     .select("full_name,xp,coins,rank,streak")
     .eq("id", session.user.id)
     .maybeSingle<ProfileRow>();
+
+  if (error) {
+    console.error("Supabase Error Details (profiles select):", error.message, error.details, error.hint);
+  }
 
   return (
     <DashboardContent

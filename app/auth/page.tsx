@@ -23,7 +23,7 @@ export default function AuthPage() {
   const [tab, setTab] = useState<"login" | "register">("login");
   const router = useRouter();
 
-  const handleAuthRedirect = () => {
+  const redirectToHome = () => {
     router.push("/");
   };
 
@@ -115,7 +115,7 @@ export default function AuthPage() {
               className="mt-6 space-y-4"
               onSubmit={(event) => {
                 event.preventDefault();
-                handleAuthRedirect();
+                redirectToHome();
               }}
             >
               <AnimatePresence mode="wait">
@@ -132,6 +132,7 @@ export default function AuthPage() {
                       type="text"
                       placeholder=" "
                       autoComplete="username"
+                      required
                       aria-label="Username"
                       className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
                     />
@@ -147,6 +148,7 @@ export default function AuthPage() {
                   type="email"
                   placeholder=" "
                   autoComplete="email"
+                  required
                   className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
                 />
                 <span className="pointer-events-none absolute left-3 top-3 text-xs font-semibold text-zinc-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs">
@@ -159,6 +161,7 @@ export default function AuthPage() {
                   type="password"
                   placeholder=" "
                   autoComplete={tab === "login" ? "current-password" : "new-password"}
+                  required
                   className="peer w-full rounded-md border border-zinc-800 bg-[#0A0A0A] px-3 pb-2 pt-5 text-sm outline-none transition focus:border-[#FF4D00] focus:shadow-[0_0_0_3px_rgba(255,77,0,0.2)]"
                 />
                 <span className="pointer-events-none absolute left-3 top-3 text-xs font-semibold text-zinc-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs">
@@ -180,7 +183,6 @@ export default function AuthPage() {
             <div className="grid gap-2 sm:grid-cols-2">
               <button
                 type="button"
-                onClick={handleAuthRedirect}
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-zinc-800 px-3 py-2 text-sm font-semibold"
               >
                 <Github className="h-4 w-4" aria-hidden="true" />
@@ -188,7 +190,6 @@ export default function AuthPage() {
               </button>
               <button
                 type="button"
-                onClick={handleAuthRedirect}
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-zinc-800 px-3 py-2 text-sm font-semibold"
               >
                 <Chrome className="h-4 w-4" aria-hidden="true" />

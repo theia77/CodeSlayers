@@ -1,4 +1,6 @@
 import { BookOpen, Flame, Shield, Sword, Terminal } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const heatmapRows = [
   [0.15, 0.35, 0.2, 0.75, 0.4, 0.85, 0.3, 0.9, 0.45, 0.25, 0.8, 0.5],
@@ -70,48 +72,42 @@ function HeatmapCard() {
 function FeatureCards() {
   return (
     <section className="mx-auto grid w-full max-w-6xl gap-4 px-4 pb-16 pt-8 sm:grid-cols-2 lg:grid-cols-3">
-      <article
-        className="rounded-xl border p-5"
-        style={{
-          backgroundColor: "var(--surface)",
-          borderColor: "color-mix(in srgb, var(--text) 18%, transparent)",
-        }}
-      >
-        <Flame size={20} style={{ color: "var(--primary)" }} />
-        <h3 className="mt-3 text-lg font-extrabold">Problem Arena</h3>
-        <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-          Battle challenges from Easy to Legendary and sharpen your algorithmic
-          instincts under pressure.
-        </p>
-      </article>
-      <article
-        className="rounded-xl border p-5"
-        style={{
-          backgroundColor: "var(--surface)",
-          borderColor: "color-mix(in srgb, var(--text) 18%, transparent)",
-        }}
-      >
-        <Shield size={20} style={{ color: "var(--accent)" }} />
-        <h3 className="mt-3 text-lg font-extrabold">Gamified Progression</h3>
-        <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-          Earn XP, climb ranks from Iron to Slayer, and stack coins as your
-          consistency and skill grow.
-        </p>
-      </article>
-      <article
-        className="rounded-xl border p-5 sm:col-span-2 lg:col-span-1"
-        style={{
-          backgroundColor: "var(--surface)",
-          borderColor: "color-mix(in srgb, var(--text) 18%, transparent)",
-        }}
-      >
-        <BookOpen size={20} style={{ color: "var(--primary)" }} />
-        <h3 className="mt-3 text-lg font-extrabold">Interactive Courses</h3>
-        <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-          Learn through markdown-first modules and auto-graded assignments built
-          for practical mastery.
-        </p>
-      </article>
+      <Card className="rounded-xl border-text/18">
+        <CardHeader>
+          <Flame size={20} style={{ color: "var(--primary)" }} />
+          <CardTitle className="mt-3">Problem Arena</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm" style={{ color: "var(--muted)" }}>
+            Battle challenges from Easy to Legendary and sharpen your algorithmic
+            instincts under pressure.
+          </p>
+        </CardContent>
+      </Card>
+      <Card className="rounded-xl border-text/18">
+        <CardHeader>
+          <Shield size={20} style={{ color: "var(--accent)" }} />
+          <CardTitle className="mt-3">Gamified Progression</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm" style={{ color: "var(--muted)" }}>
+            Earn XP, climb ranks from Iron to Slayer, and stack coins as your
+            consistency and skill grow.
+          </p>
+        </CardContent>
+      </Card>
+      <Card className="rounded-xl border-text/18 sm:col-span-2 lg:col-span-1">
+        <CardHeader>
+          <BookOpen size={20} style={{ color: "var(--primary)" }} />
+          <CardTitle className="mt-3">Interactive Courses</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm" style={{ color: "var(--muted)" }}>
+            Learn through markdown-first modules and auto-graded assignments built
+            for practical mastery.
+          </p>
+        </CardContent>
+      </Card>
     </section>
   );
 }
@@ -143,21 +139,12 @@ export default function Page() {
             </span>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
-            <button
-              className="rounded-md border px-3 py-2 text-sm font-semibold transition hover:opacity-80"
-              style={{
-                borderColor: "color-mix(in srgb, var(--text) 25%, transparent)",
-                color: "var(--text)",
-              }}
-            >
+            <Button variant="outline" className="px-3 py-2">
               Log In
-            </button>
-            <button
-              className="rounded-md px-4 py-2 text-sm font-bold text-white transition hover:opacity-90"
-              style={{ backgroundColor: "var(--primary)" }}
-            >
+            </Button>
+            <Button className="px-4 py-2 font-bold text-white">
               Sign Up
-            </button>
+            </Button>
           </div>
         </nav>
 

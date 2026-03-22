@@ -164,6 +164,7 @@ export default function Home() {
   const dashboardY = useTransform(dashboardProgress, [0, 1], [80, -24]);
 
   const marqueeItems = useMemo(() => [...logos, ...logos, ...logos], []);
+  const [runMessage, setRunMessage] = useState<string>("");
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F1F1F1]">
@@ -216,12 +217,18 @@ export default function Home() {
             and elite interview prep loops.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <button className="rounded-md bg-[#FF4D00] px-6 py-3 text-sm font-bold text-[#F1F1F1]">
+            <Link
+              href="/auth"
+              className="rounded-md bg-[#FF4D00] px-6 py-3 text-sm font-bold text-[#F1F1F1]"
+            >
               Enter the Arena
-            </button>
-            <button className="rounded-md border border-zinc-800 bg-[#141414] px-6 py-3 text-sm font-bold">
+            </Link>
+            <Link
+              href="/auth"
+              className="rounded-md border border-zinc-800 bg-[#141414] px-6 py-3 text-sm font-bold"
+            >
               View Courses
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -337,10 +344,15 @@ export default function Home() {
     return w, b`}
             </pre>
             <div className="px-4 pb-5">
-              <button className="inline-flex items-center gap-2 rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold">
+              <button
+                type="button"
+                onClick={() => setRunMessage("Sample executed successfully in demo mode.")}
+                className="inline-flex items-center gap-2 rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold"
+              >
                 <Play className="h-4 w-4" />
                 Run Code
               </button>
+              {runMessage ? <p className="mt-3 text-sm text-green-400">{runMessage}</p> : null}
             </div>
           </motion.article>
         </div>
@@ -443,7 +455,12 @@ export default function Home() {
               <li>• Analytics dashboard</li>
               <li>• Streak freezes</li>
             </ul>
-            <button className="mt-6 rounded-md border border-zinc-800 px-4 py-2 text-sm font-bold">Start Challenger</button>
+            <Link
+              href="/auth"
+              className="mt-6 inline-block rounded-md border border-zinc-800 px-4 py-2 text-sm font-bold"
+            >
+              Start Challenger
+            </Link>
           </article>
 
           <article className="rounded-md border border-[#A855F7] bg-[#141414] p-6 shadow-[0_0_24px_rgba(168,85,247,0.32)]">
@@ -455,7 +472,12 @@ export default function Home() {
               <li>• Advanced execution metrics</li>
               <li>• Exclusive Slayer profile badge</li>
             </ul>
-            <button className="mt-6 rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold text-[#F1F1F1]">Choose Pro Slayer</button>
+            <Link
+              href="/auth"
+              className="mt-6 inline-block rounded-md bg-[#FF4D00] px-4 py-2 text-sm font-bold text-[#F1F1F1]"
+            >
+              Choose Pro Slayer
+            </Link>
           </article>
         </div>
       </section>

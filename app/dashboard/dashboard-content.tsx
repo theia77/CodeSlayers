@@ -1,6 +1,8 @@
 "use client";
 
 import { Flame, Coins, ShieldCheck, Swords, BookOpen, Trophy } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   PolarGrid,
   PolarAngleAxis,
@@ -18,7 +20,14 @@ type DashboardContentProps = {
   streak: number;
 };
 
-const navItems = ["Dashboard", "Arena", "Problems", "Leaderboard"];
+const navItems = [
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Arena", href: "/arena" },
+  { label: "Problems", href: "/problems" },
+  { label: "Leaderboard", href: "/leaderboard" },
+  { label: "Courses", href: "/courses" },
+  { label: "Settings", href: "/settings" },
+];
 
 const recentSubmissions = [
   { title: "Two Sum", language: "Python", status: "Accepted", runtime: "42ms" },
@@ -68,6 +77,7 @@ function ContributionHeatmap() {
 }
 
 export default function DashboardContent({ fullName, xp, coins, rank, streak }: DashboardContentProps) {
+  const pathname = usePathname();
   const xpGoal = 2000;
   const xpPercent = Math.min(100, Math.round((xp / xpGoal) * 100));
 
@@ -77,19 +87,21 @@ export default function DashboardContent({ fullName, xp, coins, rank, streak }: 
         <aside className="rounded-md border border-zinc-800 bg-[#141414] p-4">
           <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">CodeSlayers</p>
           <h1 className="mt-2 text-xl font-black">{fullName || "Slayer"}</h1>
-          <nav className="mt-6 space-y-1">
-            {navItems.map((item) => (
-              <button
-                key={item}
-                type="button"
-                className={`w-full rounded-md px-3 py-2 text-left text-sm ${
-                  item === "Dashboard" ? "bg-[#FF4D00] text-[#F1F1F1]" : "text-zinc-300 hover:bg-zinc-800"
-                }`}
-              >
-                {item}
-              </button>
-            ))}
-          </nav>
+            <nav className="mt-6 space-y-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`block w-full rounded-md px-3 py-2 text-left text-sm ${
+                    pathname === item.href
+                      ? "bg-[#FF4D00] text-[#F1F1F1]"
+                      : "text-zinc-300 hover:bg-zinc-800"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
         </aside>
 
         <section className="space-y-5">

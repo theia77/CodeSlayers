@@ -4,11 +4,11 @@
 
 :root {
   --primary: #ff4d00;
-  --accent: #a855f7;
-  --surface: #f9f9f9;
-  --base: #ffffff;
-  --text: #0f0f0f;
-  --muted: #6b7280;
+  --accent: #ec4899;
+  --surface: #fff1f5;
+  --base: #fff8fb;
+  --text: #1a1220;
+  --muted: #7f6578;
 }
 
 .dark {

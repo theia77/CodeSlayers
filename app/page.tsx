@@ -2,7 +2,20 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Moon, Sun, Sword, Terminal, Code, Coins, Brain, Flame } from "lucide-react";
+import {
+  Moon,
+  Sun,
+  Sword,
+  Terminal,
+  Code,
+  Coins,
+  Brain,
+  Flame,
+  BarChart3,
+  BookOpen,
+  Trophy,
+  MonitorSmartphone,
+} from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 
@@ -27,6 +40,45 @@ const rules = [
     copy: "Our hints are structured by real engineers, not hallucinated by bots. Approach → Algorithm → Pseudocode.",
     icon: Brain,
     iconClass: "text-[#A855F7]",
+  },
+];
+
+const featureBuckets = [
+  {
+    title: "Gamification Upgrades",
+    icon: Trophy,
+    points: [
+      "HEXAD player profiling with personalized challenge loops.",
+      "Session-based deep-practice tracking with streak insurance.",
+      "Milestone badges, micro-wins, and weekly rank urgency systems.",
+    ],
+  },
+  {
+    title: "Progress & Analytics",
+    icon: BarChart3,
+    points: [
+      "12-month solve heatmaps with topic overlays and trend view.",
+      "Per-topic accuracy, speed, and runtime/memory distribution insights.",
+      "Knowledge-gap radar charts and spaced-repetition revisit prompts.",
+    ],
+  },
+  {
+    title: "Learning Engine",
+    icon: BookOpen,
+    points: [
+      "Adaptive learning paths that prioritize weak concepts first.",
+      "Quick Drill mode for short 10-minute high-focus practice bursts.",
+      "Pattern libraries, concept cards, and unlockable video walkthroughs.",
+    ],
+  },
+  {
+    title: "Platform & Competitive",
+    icon: MonitorSmartphone,
+    points: [
+      "Team rooms, live 1v1 battles with spectator mode, and weekly contests.",
+      "PWA + VS Code extension workflows with synced progress and streaks.",
+      "Community company tags, Discord automation, and premium fast judge.",
+    ],
   },
 ];
 
@@ -113,33 +165,48 @@ export default function Page() {
   const mockupScale = useTransform(scrollYProgress, [0, 1], [0.92, 1.08]);
   const blobY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const blobX = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const ringRotate = useTransform(scrollYProgress, [0, 1], [0, 35]);
 
   return (
     <main className="min-h-screen bg-[var(--base)] text-zinc-900 dark:text-zinc-100">
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 overflow-hidden"
-        style={{ zIndex: 0 }}
-      >
         <motion.div
-          className="absolute -left-20 top-24 h-[28rem] w-[28rem] rounded-full"
-          style={{
-            y: blobY,
-            background: "radial-gradient(circle, rgba(255,77,0,0.2), transparent 62%)",
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 overflow-hidden"
+          style={{ zIndex: 0 }}
+        >
+          <motion.div
+            className="absolute left-1/2 top-1/2 h-[44rem] w-[44rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/40 dark:border-white/10"
+            style={{ rotate: ringRotate }}
+            animate={{ scale: [1, 1.04, 1], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute -left-20 top-24 h-[28rem] w-[28rem] rounded-full"
+            style={{
+              y: blobY,
+              background: "radial-gradient(circle, rgba(255,77,0,0.2), transparent 62%)",
           }}
           animate={{ x: [0, 30, -15, 0], y: [0, 40, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
         />
-        <motion.div
-          className="absolute -right-24 top-52 h-[26rem] w-[26rem] rounded-full"
-          style={{
-            x: blobX,
-            background: "radial-gradient(circle, rgba(168,85,247,0.18), transparent 60%)",
-          }}
-          animate={{ x: [0, -30, 20, 0], y: [0, -20, 15, 0] }}
-          transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-        />
-      </motion.div>
+          <motion.div
+            className="absolute -right-24 top-52 h-[26rem] w-[26rem] rounded-full"
+            style={{
+              x: blobX,
+              background: "radial-gradient(circle, rgba(236,72,153,0.2), transparent 60%)",
+            }}
+            animate={{ x: [0, -30, 20, 0], y: [0, -20, 15, 0] }}
+            transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            className="absolute bottom-16 left-[12%] h-40 w-40 rounded-full"
+            style={{
+              background: "radial-gradient(circle, rgba(255,77,0,0.16), transparent 66%)",
+            }}
+            animate={{ x: [0, 36, -18, 0], y: [0, -28, 0] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
 
       <div className="relative z-10">
         <nav className="fixed inset-x-0 top-0 z-50 border-b border-zinc-200/80 bg-[var(--base)]/90 backdrop-blur-sm dark:border-zinc-800/90">
@@ -308,6 +375,35 @@ export default function Page() {
                 Go Pro Slayer
               </motion.button>
             </article>
+          </div>
+        </section>
+
+        <section className="mx-auto w-full max-w-7xl px-4 py-10">
+          <h2 className="mb-3 text-2xl font-black text-zinc-900 dark:text-zinc-100">New &amp; Trending Features</h2>
+          <p className="max-w-3xl text-sm text-[var(--muted)] sm:text-base">
+            CodeSlayers is expanding with modern gamification, adaptive learning, and competitive
+            systems inspired by current coding-platform and edtech trends.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {featureBuckets.map((bucket) => {
+              const Icon = bucket.icon;
+              return (
+                <article
+                  key={bucket.title}
+                  className="rounded-md border border-zinc-200 bg-[var(--surface)] p-5 dark:border-zinc-800"
+                >
+                  <div className="flex items-center gap-2">
+                    <Icon aria-hidden="true" className="h-5 w-5 text-[#FF4D00]" />
+                    <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{bucket.title}</h3>
+                  </div>
+                  <ul className="mt-3 space-y-2 text-sm text-[var(--muted)]">
+                    {bucket.points.map((point) => (
+                      <li key={point}>• {point}</li>
+                    ))}
+                  </ul>
+                </article>
+              );
+            })}
           </div>
         </section>
 
